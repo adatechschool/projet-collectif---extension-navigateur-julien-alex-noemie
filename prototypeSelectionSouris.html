@@ -8,12 +8,9 @@
         if (window.getSelection) {
           //only work if supported
           var selection = window.getSelection(); //get the selection object
-          var anchorNodeProp = selection.anchorNode; //get the node object
           alert(
             "Selected text: \n" +
-              selection.toString() +
-              "\nText related to the node: \n" +
-              anchorNodeProp.toString()
+              selection.toString()
           );
         }
       }
