@@ -8,7 +8,7 @@
       sendResponse({}); // Send nothing..
    });*/
 
-   console.log("test");
+   console.log("alex");
 
 function getSelectionText() {
   if (window.getSelection) {
@@ -34,7 +34,7 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-document.getElementById
+
 
 
 
