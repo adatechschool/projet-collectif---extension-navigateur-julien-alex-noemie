@@ -1,23 +1,37 @@
 
- let newText;
-   async function getCurrentTab(){
-   await chrome.tabs.query({active: true, currentWindow: true}, function(tab) {
-     chrome.tabs.sendMessage(tab[0].id, {greeting: "hello"}, function(response) {
-      console.log(typeof response);
+getLocalStorage();
+
+
+let newText;
+function getCurrentTab() {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tab) {
+    chrome.tabs.sendMessage(tab[0].id, { greeting: "hello" }, function (response) {
       newText = response;
-      console.log(newText);
       document.getElementById("textarea").innerHTML = newText;
-
-
+      setLocalStorage(newText);
     });
   });
 }
 
-let boutonAction=document.getElementById("action");
+let boutonAction = document.getElementById("action");
 console.log(boutonAction);
-boutonAction.addEventListener("click", function(){
+boutonAction.addEventListener("click", function () {
   getCurrentTab();
 });
+
+
+// Local Storage in progress
+function setLocalStorage(value) {
+  chrome.storage.local.set({ key: value });
+  //console.log("NewText " + typeof newText);
+}
+function getLocalStorage() {
+  chrome.storage.local.get(['key'], function (result) {
+    console.log(result.key);
+    document.getElementById("textarea").innerHTML = result.key;
+  });
+}
+
 
 
 
