@@ -20,8 +20,14 @@ boutonAction.addEventListener("click", function () {
   getCurrentTab();
 });
 
+let boutonClear = document.getElementById("clear");
+boutonClear.addEventListener("click", function () {
+  chrome.storage.local.clear();
+  document.getElementById("textarea").value = "";
+});
+
 let textAreaInput = document.getElementById("textarea");
-textAreaInput.addEventListener("input", function (e) {
+textAreaInput.addEventListener("change", function (e) {
   setLocalStorage(e.target.value);
 });
 
@@ -30,7 +36,7 @@ function setLocalStorage(value) {
 }
 function getLocalStorage() {
   chrome.storage.local.get(["key"], function (result) {
-    newText = result.key;
+    newText = result.key === undefined ? "" : result.key;
     document.getElementById("textarea").innerHTML = newText;
   });
 }
