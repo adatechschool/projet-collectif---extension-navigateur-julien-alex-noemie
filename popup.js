@@ -8,7 +8,7 @@ function getCurrentTab() {
       { greeting: "hello" },
       function (response) {
         newText = newText + " " + response;
-        document.getElementById("textarea").innerHTML = newText;
+        document.getElementById("textarea").value = newText;
         setLocalStorage(newText);
       }
     );
@@ -38,10 +38,6 @@ boutonSave.addEventListener("click", function () {
   setLocalStorage(document.getElementById("textarea").value);
 });
 
-let textAreaInput = document.getElementById("textarea");
-textAreaInput.addEventListener("change", function (e) {
-  setLocalStorage(e.target.value);
-});
 
 function setLocalStorage(value) {
   chrome.storage.local.set({ key: value });
@@ -49,6 +45,6 @@ function setLocalStorage(value) {
 function getLocalStorage() {
   chrome.storage.local.get(["key"], function (result) {
     newText = result.key === undefined ? "" : result.key;
-    document.getElementById("textarea").innerHTML = newText;
+    document.getElementById("textarea").value = newText;
   });
 }
