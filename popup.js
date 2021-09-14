@@ -7,7 +7,12 @@ function getCurrentTab() {
       tab[0].id,
       { greeting: "hello" },
       function (response) {
-        newText = newText + " " + response;
+        if (document.getElementById("textarea").value==""){
+          newText = response;
+        }else{
+          newText = newText + "\n" + response;
+        }
+       
         document.getElementById("textarea").value = newText;
         setLocalStorage(newText);
       }
