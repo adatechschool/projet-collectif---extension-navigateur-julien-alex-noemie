@@ -7,12 +7,12 @@ function getCurrentTab() {
       tab[0].id,
       { greeting: "hello" },
       function (response) {
-        if (document.getElementById("textarea").value==""){
+        if (document.getElementById("textarea").value == "") {
           newText = response;
-        }else{
+        } else {
           newText = newText + "\n" + response;
         }
-       
+
         document.getElementById("textarea").value = newText;
         setLocalStorage(newText);
       }
@@ -37,12 +37,10 @@ textAreaInput.addEventListener("change", function (e) {
   setLocalStorage(e.target.value);
 });*/
 
-
 let boutonSave = document.getElementById("save");
 boutonSave.addEventListener("click", function () {
   setLocalStorage(document.getElementById("textarea").value);
 });
-
 
 function setLocalStorage(value) {
   chrome.storage.local.set({ key: value });
@@ -53,3 +51,22 @@ function getLocalStorage() {
     document.getElementById("textarea").value = newText;
   });
 }
+
+function saveTextAsFile() {
+  var textToWrite = document.getElementById("textarea").value;
+  var textFileAsBlob = new Blob([textToWrite], {
+    type: "text/plain",
+  });
+  var fileNameToSaveAs = "file.txt";
+  var downloadLink = document.createElement("a");
+  downloadLink.download = fileNameToSaveAs;
+  downloadLink.innerHTML = "Download File";
+
+  // Chrome allows the link to be clicked
+  // without actually adding it to the DOM.
+  downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+  downloadLink.click();
+}
+
+var buttonExport = document.getElementById("export");
+buttonExport.addEventListener("click", saveTextAsFile);
